@@ -49,22 +49,22 @@ LAUNCHCONF=(`aws autoscaling describe-launch-configurations --output json | grep
 
 SCALENAME=(`aws autoscaling describe-auto-scaling-groups --output json | grep AutoScalingGroupName | sed "s/[\"\:\, ]//g" | sed "s/AutoScalingGroupName//g"`)
 
-echo "The asgs are: " ${SCALENAME[@]}
+echo "The args are: " ${SCALENAME[@]}
 echo "the number is: " ${#SCALENAME[@]}
 
 if [ ${#SCALENAME[@]} -gt 0 ]
   then
 echo "SCALING GROUPS to delete..."
-#aws autoscaling detach-launch-
+aws autoscaling detach-launch-
 
-#aws autoscaling delete-auto-scaling-group --auto-scaling-group-name $SCALENAME
+aws autoscaling delete-auto-scaling-group --auto-scaling-group-name $SCALENAME
 
-#aws autoscaling delete-launch-configuration --launch-configuration-name $LAUNCHCONF
+aws autoscaling delete-launch-configuration --launch-configuration-name $LAUNCHCONF
 
-#aws autoscaling update-auto-scaling-group --auto-scaling-group-name $SCALENAME --min-size 0 --max-size 0
+aws autoscaling update-auto-scaling-group --auto-scaling-group-name $SCALENAME --min-size 0 --max-size 0
 
-#aws autoscaling delete-auto-scaling-group --auto-scaling-group-name $SCALENAME
-#aws autoscaling delete-launch-configuration --launch-configuration-name $LAUNCHCONF
+aws autoscaling delete-auto-scaling-group --auto-scaling-group-name $SCALENAME
+aws autoscaling delete-launch-configuration --launch-configuration-name $LAUNCHCONF
 fi
 
 echo "All done"
