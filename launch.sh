@@ -22,7 +22,7 @@ echo "\n"
 #register load balancer
 aws elb register-instances-with-load-balancer --load-balancer-name MP1-lb --instances ${instArray[@]}
 
-aws elb configure-health-check --load-balancer-name MP1-lb --health-check Target=HTTP:80/index.html,Interval=50,UnhealthyThreshold=3,HealthyThreshold=3,Timeout=4
+aws elb configure-health-check --load-balancer-name MP1-lb --health-check Target=HTTP:80/index.html,Interval=30,UnhealthyThreshold=2,HealthyThreshold=2,Timeout=3
 
 echo -e "\nWaiting an additional 3 minutes (180 seconds) . before opening the ELB in a webbrowser"
 for i in {0..180}; do echo -ne '.'; sleep 1;done
