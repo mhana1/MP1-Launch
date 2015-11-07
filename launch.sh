@@ -46,6 +46,7 @@ aws cloudwatch put-metric-alarm --alarm-name AddCapacity --metric-name CPUUtiliz
 
 aws cloudwatch put-metric-alarm --alarm-name RemoveCapacity --metric-name CPUUtilization --namespace AWS/EC2 --statistic Average --period 120 --threshold 10 --comparison-operator LessThanOrEqualToThreshold --dimensions "Name=AutoScalingGroupName,Value=itmo-544-autoscaling-group" --evaluation-periods 2 --alarm-actions $PolicyARN2
 
-
+echo "Creating Database..."
+aws rds wait db-instance-deleted --db-instance-identifier ${dbInstanceARR[i]} --output text
 aws rds create-db-instance --db-instance-identifier mh-db --db-name mhana1DB --db-instance-class db.t1.micro --engine MySQL --allocated-storage 5 --master-username controller --master-user-password letmein888
 	 
