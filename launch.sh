@@ -23,8 +23,12 @@ aws elb register-instances-with-load-balancer --load-balancer-name MP1-lb --inst
 
 aws elb configure-health-check --load-balancer-name MP1-lb --health-check Target=HTTP:80/index.html,Interval=30,UnhealthyThreshold=2,HealthyThreshold=2,Timeout=3
 
+aws elb create-lb-cookie-stickiness-policy --load-balancer-name MP1-lb --policy-name cookie --cookie-expiration-period 60
+
+aws elb set-load-balancer-policies-of-listener --load-balancer-name MP1-lb --load-balancer-port 80 --policy-names cookie
+
 echo -e "\nWaiting an additional 3 minutes (180 seconds) . before opening the ELB in a webbrowser"
-for i in {0..1}; do echo -ne '.'; sleep 1;done
+for i in {0..180}; do echo -ne '.'; sleep 1;done
 
 
 aws autoscaling create-launch-configuration --launch-configuration-name itmo544-launch-config --image-id $1 --key-name $6  --security-groups $4  --instance-type $3 --user-data file://../MP1-ENV/install-env.sh --iam-instance-profile $7

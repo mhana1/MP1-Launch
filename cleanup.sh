@@ -27,7 +27,7 @@ for (( i=0; i<${LENGTH}; i++));
   sleep 1
 done
 
-:'
+
 # Delete existing RDS  Databases
 # Note if deleting a read replica this is not your command 
 echo "Deletinig existing databases..."
@@ -46,7 +46,8 @@ if [ ${#dbInstanceARR[@]} -gt 0 ]
       sleep 1
    done
 fi
-'
+
+
 # Create Launchconf and Autoscaling groups
 echo "Deleting existing autoscaling groups..."
 LAUNCHCONF=(`aws autoscaling describe-launch-configurations --output json | grep LaunchConfigurationName | sed "s/[\"\:\, ]//g" | sed "s/LaunchConfigurationName//g"`)
@@ -60,7 +61,7 @@ if [ ${#SCALENAME[@]} -gt 0 ]
 
 #aws autoscaling detach-launch-
 #aws autoscaling update-auto-scaling-group --auto-scaling-group-name $SCALENAME --min-size 0 --max-size 0
-aws aws autoscaling disable-metrics-collection --auto-scaling-group-name $SCALENAME
+aws autoscaling disable-metrics-collection --auto-scaling-group-name $SCALENAME
 
 sleep 10
 
