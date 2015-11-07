@@ -42,7 +42,7 @@ if [ ${#dbInstanceARR[@]} -gt 0 ]
       for (( i=0; i<${LENGTH}; i++));
       do 
       aws rds delete-db-instance --db-instance-identifier ${dbInstanceARR[i]} --skip-final-snapshot --output text
-      aws rds wait db-instance-deleted --db-instance-identifier ${dbInstanceARR[i]} --output text
+      #aws rds wait db-instance-deleted --db-instance-identifier ${dbInstanceARR[i]} --output text
       sleep 1
    done
 fi
