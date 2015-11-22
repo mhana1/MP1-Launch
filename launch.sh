@@ -15,7 +15,7 @@ echo "instances are running"
 aws elb create-load-balancer --load-balancer-name MP1-lb --listeners Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80 --security-groups $4 --subnets $5 --output=text
 
 echo -e "\nFinished launching ELB and sleeping 25 second"
-for i in {0..1}; do echo -ne '.'; sleep 1;done
+for i in {0..25}; do echo -ne '.'; sleep 1;done
 echo "\n"
 
 #register load balancer
@@ -28,7 +28,7 @@ aws elb create-lb-cookie-stickiness-policy --load-balancer-name MP1-lb --policy-
 aws elb set-load-balancer-policies-of-listener --load-balancer-name MP1-lb --load-balancer-port 80 --policy-names cookie
 
 echo -e "\nWaiting an additional 3 minutes (180 seconds) . before opening the ELB in a webbrowser"
-for i in {0..1}; do echo -ne '.'; sleep 1;done
+for i in {0..180}; do echo -ne '.'; sleep 1;done
 
 
 aws autoscaling create-launch-configuration --launch-configuration-name itmo544-launch-config --image-id $1 --key-name $6  --security-groups $4  --instance-type $3 --user-data file://../MP1-ENV/install-env.sh --iam-instance-profile $7
